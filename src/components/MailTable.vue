@@ -1,5 +1,5 @@
-
 <template>
+  <BulkActionBar :emails="unarchivedEmails" />
   <table class="mail-table">
     <tbody>
       <tr v-for="email in unarchivedEmails"
@@ -8,14 +8,14 @@
         <td>
           <input type="checkbox"
                  @click="emailSelection.toggle(email)"
-                 :selected="emailSelection.emails.has(email)" />
+                 :checked="emailSelection.emails.has(email)" />
         </td>
         <td @click="openEmail(email)">{{email.from}}</td>
         <td @click="openEmail(email)">
           <p><strong>{{email.subject}}</strong> - {{email.body}}</p>
         </td>
         <td class="date" @click="openEmail(email)">
-          {{format(new Date(email.sentAt), 'do MMM yyyy')}}
+          {{format(new Date(email.sentAt), 'MMM do yyyy')}}
         </td>
         <td><button @click="archiveEmail(email)">Archive</button></td>
       </tr>
@@ -31,6 +31,7 @@
   import axios from 'axios';
   import MailView from '@/components/MailView.vue';
   import ModalView from '@/components/ModalView.vue';
+  import BulkActionBar from '@/components/BulkActionBar.vue';
   import { ref } from 'vue';
   import useEmailSelection from '@/composables/use-email-selection'
   export default {
@@ -45,7 +46,8 @@
     },
     components: {
       MailView,
-      ModalView
+      ModalView,
+      BulkActionBar
     },
     computed: {
       sortedEmails() {
