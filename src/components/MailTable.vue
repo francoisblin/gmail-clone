@@ -43,7 +43,7 @@
   import useEmailSelection from '@/composables/use-email-selection'
   export default {
     async setup(){
-      let {data: emails} = await axios.get('http://localhost:3000/emails')
+      let {data: emails} = await axios.get('https://my-json-server.typicode.com/francoisblin/gmail-clone/emails')
       return {
         emailSelection: useEmailSelection(),
         format,
